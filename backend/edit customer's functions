@@ -24,7 +24,7 @@
 
 	public function edit_phone($PhoneNumber)
 		{
-			$sql = "UPDATE customer SET phonenumber = $PhoneNumber WHERE id= $id" ;
+			$sql = "UPDATE customer SET phone_number = $PhoneNumber WHERE id= $id" ;
     		Database::$db->prepare($sql)->execute([$PhoneNumber];
 		} 
 
