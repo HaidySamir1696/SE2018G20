@@ -203,7 +203,7 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Open Sans", sans-serif}
 
                            // $data=$statement->fetch(PDO::FETCH_ASSOC);
 
-                          $query = "SELECT * FROM project WHERE category='Games and Entertainment' ";
+                          $query = "SELECT * FROM project WHERE category="Games and Entertainment";
 
                           $data = Database::$db->query($query);
 
