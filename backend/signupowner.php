@@ -1,48 +1,65 @@
 <?php
-include_once('./common/headwithout.php');
-//include_once('./models/customers.php');
-//include_once('./models/owners.php');
-//include_once ('./controllers/signupFormControl.php');
- //include_once ('./controllers/signupformcontrolowner.php');
-  include_once('./models/Database.php');
- Database::connect('startups_on_the_cloud','root','turtledove');
-  // Initialize message variable
-  $msg = "";
+ include_once('./common/headwithout.php');
+ include_once('./models/customers.php');
+ include_once('./models/owners.php');
+ include_once ('./controllers/signupFormControl.php');
+ include_once ('./controllers/signupformcontrolowner.php');
+ include_once('./models/Database.php');
+ Database::connect('startups_on_the_cloud','root','');
 
-  // If upload button is clicked ...
-  if (isset($_POST['upload_p'])) {
-  	// Get image name
+  $msg = "";
+  if (isset($_POST['submit'])) {
 
   	$primary_image =$_FILES['primary_image']['name'];
-
-
-  	// image file directory
-  	$primary_target = "primary_image/".basename($primary_image);
-  	$sql_p = "INSERT INTO project(primary_image) VALUES ('$primary_image')";
-  	// execute query
-        $data_p=Database::$db->query($sql_p);
-        $data_p->execute();
-   if (move_uploaded_file($_FILES['primary_image']['tmp_name'], $primary_target)) {
+        $primary_target = "primary_image/".basename($primary_image);
+        $secondary_image_1=$_FILES['secondary_image_1']['name'];
+        $secondary_target_1 = "secondary_image/".basename($secondary_image_1);
+        $secondary_image_2=$_FILES['secondary_image_2']['name'];
+        $secondary_target_2 = "secondary_image/".basename($secondary_image_2);
+        $secondary_image_3=$_FILES['secondary_image_3']['name'];
+        $secondary_target_3 = "secondary_image/".basename($secondary_image_3);
+        $secondary_image_4=$_FILES['secondary_image_4']['name'];
+        $secondary_target_4 = "secondary_image/".basename($secondary_image_4);
+        $secondary_image_5=$_FILES['secondary_image_5']['name'];
+        $secondary_target_5 = "secondary_image/".basename($secondary_image_5);
+  	$sql = "INSERT INTO project(primary_image,secondary_photo_1,secondary_photo_2,secondary_photo_3,secondary_photo_4,secondary_photo_5) VALUES ('$primary_image','$secondary_image_1','$secondary_image_2','$secondary_image_3','$secondary_image_4','$secondary_image_5')";
+        $data=Database::$db->query($sql);
+        $data->execute();
+       	if (move_uploaded_file($_FILES['primary_image']['tmp_name'], $primary_target)) {
   		$msg = "Image uploaded successfully";
-  	                }else{
+  	            }else{
   		$msg = "Failed to upload image";
-  	                 }
-                          }
-
-          else if (isset($_POST['upload_s'])) {
-            $secondary_image=$_FILES['secondary_image']['name'];
-            $secondary_target = "secondary_image/".basename($secondary_image);
-              $sql_s = "INSERT INTO secondary_photos(secondary_photo_link ) VALUES ('$secondary_image')";
-              $data_s=Database::$db->query($sql_s);
-              $data_s->execute();
-
-
-
-  	if (move_uploaded_file($_FILES['secondary_image']['tmp_name'], $secondary_target)) {
+  	            }
+       	if (move_uploaded_file($_FILES['secondary_image_1']['tmp_name'], $secondary_target_1)) {
   		$msg = "Image uploaded successfully";
-  	}else{
+  	              }else{
   		$msg = "Failed to upload image";
   	}
+
+       	if (move_uploaded_file($_FILES['secondary_image_2']['tmp_name'], $secondary_target_2)) {
+  		$msg = "Image uploaded successfully";
+  	              }else{
+  		$msg = "Failed to upload image";
+  	}
+
+       	if (move_uploaded_file($_FILES['secondary_image_3']['tmp_name'], $secondary_target_3)) {
+  		$msg = "Image uploaded successfully";
+  	              }else{
+  		$msg = "Failed to upload image";
+  	}
+
+       	if (move_uploaded_file($_FILES['secondary_image_4']['tmp_name'], $secondary_target_4)) {
+  		$msg = "Image uploaded successfully";
+  	              }else{
+  		$msg = "Failed to upload image";
+  	}
+
+       	if (move_uploaded_file($_FILES['secondary_image_5']['tmp_name'], $secondary_target_5)) {
+  		$msg = "Image uploaded successfully";
+  	              }else{
+  		$msg = "Failed to upload image";
+  	}
+
 
   }
 
@@ -146,32 +163,42 @@ textarea{
     <hr>
     <label>Upload the main Photo</label>
     <input type="file" name="primary_image"> <br/>
-    	<div>
-    <button type= "submit"  name= "upload_p">upload image</button>
-    	</div>
         <br/>
     <hr>
 
-    <label>Upload secondary Photos</label>
-    <input type="file" name="secondary_image"> <br/>
-    	<div>
-    <button type= "submit"  name= "upload_s">upload image</button>
-    	</div>
+    <label>Upload secondary Photo 1</label>
+    <input type="file" name="secondary_image_1"> <br/>
         <br/>
+
     <hr>
-        
-    <label> Location URL </label>  
+    <label>Upload secondary Photo 2</label>
+    <input type="file" name="secondary_image_2"> <br/>
+        <br/>
+          <hr>
+        <label>Upload secondary Photo 3</label>
+    <input type="file" name="secondary_image_3"> <br/>
+        <br/>
+          <hr>
+          <label>Upload secondary Photo 4</label>
+    <input type="file" name="secondary_image_4"> <br/>
+        <br/>
+          <hr>
+        <label>Upload secondary Photo 5</label>
+    <input type="file" name="secondary_image_5"> <br/>
+        <br/>
+                <hr>
+    <label> Location URL </label>
     <input type= "url" id="location" class="signup-info" placeholder="Enter Google Maps URL"><br/>
     <hr>
-        
+
     <label> Startup Description</label><br/>
-    <textarea style="width:100%" id="Startup_Description" placeholder="Enter Startup Description"></textarea>   
+    <textarea style="width:100%" id="Startup_Description" placeholder="Enter Startup Description"></textarea>
     <hr>
-    <label> National ID </label>  
+    <label> National ID </label>
     <input type="text" id="project_name" class="signup-info" maxlength="14" placeholder="Enter National ID" name="nationalID"><br/>
     <hr>
-        
-    <input type="submit" value="submit" id="submit" class="signup-info">
+
+    <input type="submit" value="submit" name="submit" id="submit" class="signup-info">
         <br><br><br>
     </form>    
 </div>
