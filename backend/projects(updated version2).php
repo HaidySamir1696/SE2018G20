@@ -1,10 +1,15 @@
+
 <?php 
 
 include_once ('Database.php');
 
+//$projectid=$_GET['Project_ID'];
+//$id=$_GET['$id'];
+$projectid=$_POST['projectid'];
 
+  //echo $projectid;
 class Project extends Database{
-	
+	//$projectid=$_GET=['Project_ID'];
 	function __construct($ProjectId)
 	{
 		$sql="SELECT * FROM projects WHERE ProjectId=$ProjectId";
@@ -51,7 +56,7 @@ class Project extends Database{
 		$statement= Database::$db->prepare($sql);
 		$statement->execute([$this->projectName, $this->category_id,$this->owner_id]);
 	}
-public static function CreateProject($projectName,$category,$location,$description,$rating,$pImage){
+//public static function CreateProject($projectName,$category,$location,$description,$rating,$pImage){
 
 	public static function AddFeedback($ProjectID,$customerID,$feedback){
 
