@@ -421,7 +421,26 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Open Sans", sans-serif}
   
 <!-- End Page Container -->
 </div>
+    <div class="w3-col m7">
+      <?php
 
+                          //  $sql="SELECT * FROM startup_owner WHERE id=$id";
+                          //  $statement= Database::$db->prepare($sql);
+                          //$statement->execute();
+                           // $data=$statement->fetch(PDO::FETCH_ASSOC);
+                          $query = "SELECT * FROM project WHERE category='restaurant'";
+                          $data = Database::$db->query($query);
+                          $data->execute();
+                          while($row=$data->fetch(PDO::FETCH_ASSOC)):
+                           ?>
+                        <div class="w3-container w3-card w3-white w3-round w3-margin"><br>
+        <img src="secondary_image/<?php echo $row['secondary_photo_1'] ?>"  class="w3-left w3-circle w3-margin-right" style="width:100px">
+             <img src="secondary_image/<?php echo $row['secondary_photo_2'] ?>"  class="w3-left w3-circle w3-margin-right" style="width:100px">
+                  <img src="secondary_image/<?php echo $row['secondary_photo_3'] ?>"  class="w3-left w3-circle w3-margin-right" style="width:100px">
+                      <img src="secondary_image/<?php echo $row['secondary_photo_4'] ?>"  class="w3-left w3-circle w3-margin-right" style="width:100px">
+                         <img src="secondary_image/<?php echo $row['secondary_photo_5'] ?>"  class="w3-left w3-circle w3-margin-right" style="width:100px">
+                              </div>
+          <?php  endwhile; ?>
  
 <script>
 // Accordion
