@@ -1,59 +1,8 @@
-<?php include_once('./common/headwithout.php');
-//include_once('./models/customers.php');
-//include_once('./models/owners.php');
+<?php include_once('./common/headwithout.php'); 
+include_once('./models/customers.php');
+include_once('./models/owners.php');
 //include_once ('./controllers/signupFormControl.php');
- //include_once ('./controllers/signupformcontrolowner.php');
- include_once('./models/Database.php');
- Database::connect('startups_in_the_cloud','root','turtledove');
-
-  if (isset($_POST['submit'])) {
-    	$primary_image =$_FILES['primary_image']['name'];
-        $primary_target = "primary_image/".basename($primary_image);
-        $secondary_image_1=$_FILES['secondary_image_1']['name'];
-        $secondary_target_1 = "secondary_image/".basename($secondary_image_1);
-        $secondary_image_2=$_FILES['secondary_image_2']['name'];
-        $secondary_target_2 = "secondary_image/".basename($secondary_image_2);
-        $secondary_image_3=$_FILES['secondary_image_3']['name'];
-        $secondary_target_3 = "secondary_image/".basename($secondary_image_3);
-        $secondary_image_4=$_FILES['secondary_image_4']['name'];
-        $secondary_target_4 = "secondary_image/".basename($secondary_image_4);
-        $secondary_image_5=$_FILES['secondary_image_5']['name'];
-        $secondary_target_5 = "secondary_image/".basename($secondary_image_5);
-
-  	$sql = "INSERT INTO secondary_photos(primary_image,secondary_photo_1,secondary_photo_2,secondary_photo_3,secondary_photo_4,secondary_photo_5) VALUES ('$primary_image','$secondary_image_1','$secondary_image_2','$secondary_image_3','$secondary_image_4','$secondary_image_5')";
-        $data=Database::$db->query($sql);
-
-       	if (move_uploaded_file($_FILES['primary_image']['tmp_name'], $primary_target)) {
-  		$msg = "Image uploaded successfully";
-  	            }else{
-  		$msg = "Failed to upload image";
-  	            }
-       	if (move_uploaded_file($_FILES['secondary_image_1']['tmp_name'], $secondary_target_1)) {
-  		$msg = "Image uploaded successfully";
-  	              }else{
-  		$msg = "Failed to upload image";
-  	}
-       	if (move_uploaded_file($_FILES['secondary_image_2']['tmp_name'], $secondary_target_2)) {
-  		$msg = "Image uploaded successfully";
-  	              }else{
-  		$msg = "Failed to upload image";
-  	}
-       	if (move_uploaded_file($_FILES['secondary_image_3']['tmp_name'], $secondary_target_3)) {
-  		$msg = "Image uploaded successfully";
-  	              }else{
-  		$msg = "Failed to upload image";
-  	}
-       	if (move_uploaded_file($_FILES['secondary_image_4']['tmp_name'], $secondary_target_4)) {
-  		$msg = "Image uploaded successfully";
-  	              }else{
-  		$msg = "Failed to upload image";
-  	}
-       	if (move_uploaded_file($_FILES['secondary_image_5']['tmp_name'], $secondary_target_5)) {
-  		$msg = "Image uploaded successfully";
-  	              }else{
-  		$msg = "Failed to upload image";
-  	}
-  }
+ include_once ('./controllers/signupformcontrolowner.php');
  ?>
 
 
@@ -62,39 +11,39 @@
 <head>
 <style>
 html,body,h1,h2,h3,h4,h5 {font-family: "Open Sans", sans-serif}
-body{background-color:rgb(206,206,206,1);}
-
+body{background-color:rgb(206,206,206,1);}   
+    
  label
     {
         font-family: cursive;
         font-size: 25px;
     }
-
-
+    
+    
  .main
     {
         position:absolute;
-         padding: 2% ;
+         padding: 2% ; 
          margin: 2%;
         text-align: center;
     }
-
-
+    
+    
 body{
     background-color:black;
-    }
+    }     
 
 
 .signup-info
 {
-
+    
     width: 300px;
-    height: 45px;
+    height: 45px; 
     border:1px solid #999;
     padding:5px;
     border-radius: 10px;
-
-}
+           
+}    
 
 #submit
 {
@@ -110,24 +59,24 @@ body{
 textarea{
     border:1px solid #999;
     padding:5px;
-    border-radius: 10px;
+    border-radius: 10px;        
     }
 #submit:hover
 {
-   background-color:lightblue;
-}
-
+   background-color:lightblue; 
+}      
+    
     </style>
-
+    
 </head>
-
+    
 <body class="w3-theme-l5">
 
 <br><br>
-
+    
 <div class="main">
-    <form  method="post"  enctype="multipart/form-data"" >
-
+    <form  method="post" >
+        
     <label> Name :  </label>
             <input class="signup-info" type="text" placeholder="Name" id="username2" name="username2"><br><hr>
             <label>Password :    </label>
@@ -135,12 +84,12 @@ textarea{
             <label>E-mail:    </label>
             <input class="signup-info" type="email" name="email" placeholder="email" id="email"><br><hr>
             <label>Number:      </label>
-            <input  class="signup-info" type="tel" name="phonenumber" placeholder="phonenumber" id="phonenumber"><br><hr>
-
-    <label> Project Name </label>
+            <input  class="signup-info" type="tel" name="phonenumber" placeholder="phonenumber" id="phonenumber"><br><hr>       
+        
+    <label> Project Name </label>  
     <input type="text" id="project_name" class="signup-info" placeholder="Enter Project Name" name="projectName"><br/>
     <hr>
-
+    
     <label> Category </label>
     <select class="signup-info" name="cate">
     <option value="Restaurant" selected>Restaurant</option>
@@ -152,32 +101,27 @@ textarea{
     </select>
     <br/>
     <hr>
-    <label>Upload the main Photo</label>
-    <input type="file" name="primary_image"> <br/>
+    <label>Upload the main Photo</label>  
+    <input type="file" id="project_name" name="projectPhoto"><br/>
         <br/>
     <hr>
-    <label>Upload secondary Photo 1</label>
-    <input type="file" name="secondary_image_1"> <br/>
+         
+    <label>Upload secondary Photos</label>  
+    <input type="file" id="project_name" multiple name="secphoto" ><br/>
         <br/>
     <hr>
-    <label>Upload secondary Photo 2</label>
-    <input type="file" name="secondary_image_2"> <br/>
-        <br/>
-          <hr>
-        <label>Upload secondary Photo 3</label>
-    <input type="file" name="secondary_image_3"> <br/>
-        <br/>
-          <hr>
-          <label>Upload secondary Photo 4</label>
-    <input type="file" name="secondary_image_4"> <br/>
-        <br/>
-          <hr>
-        <label>Upload secondary Photo 5</label>
-    <input type="file" name="secondary_image_5"> <br/>
-        <br/>
-                <hr>
+      <label> Location </label>
+    <select class="signup-info" name="area">
+    <option value="Madenit Nasr" selected>Madenit Nasr</option>
+    <option value="Masr El Gdeda" >Masr El Gdeda</option>
+    <option value="Moaatam" >Moaatam</option>
+    <option value="Madii" >Madii</option>
+    <option value="shobra" >shobra</option>
+    </select>
+    <br/>
+    <hr>
 
-    <label> Location URL </label>
+    <label> Location URL </label>  
     <input type= "url" id="location" class="signup-info" placeholder="Enter Google Maps URL" name="location"><br/>
     <hr>
         
