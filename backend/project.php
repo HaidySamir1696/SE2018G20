@@ -8,7 +8,19 @@
   $projectid=$_POST['projectid'];
   //$feedback =safeGet("textArea");
   //Project::AddFeedback($projectid,$feedback);
-  
+  if(isset($_REQUEST['SubmitFeedback'])){
+
+    $feedback =safeGet("textArea");
+    echo $feedback;
+    //echo $projectid;
+$idProject  = $_GET['id'];
+echo $idProject;
+    $sql = "INSERT INTO feedbacks(Project_ID,feedback) VALUES ('$idProject','$feedback');";
+           //sql = "UPDATE feedbacks SET feedback ='$feedback' WHERE project_id = '$projectid';";
+     $data= Database::$db->prepare($sql);
+     $data->execute();
+      //echo "haidyyyyyyyyyyy";
+  }
 
   
  ?>
@@ -33,7 +45,7 @@ $(document).ready(function(){
       var i =Math.floor(1000+Math.random()*9000);
       console.log(i)
        alert(i);
-         $("#promoCode").attr("disabled", true);
+       $("#promoCode").attr("disabled",true);
      });
 
 
@@ -220,7 +232,7 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Open Sans", sans-serif}
                           //$statement->execute();
                            // $data=$statement->fetch(PDO::FETCH_ASSOC);
                           $query = "SELECT * FROM secondary_photos WHERE ProjectID='$projectid'";
-                          $data = Database::$db->query($query);
+                          $data = Database::$db->prepare($query);
                           $data->execute();
                           while($row=$data->fetch(PDO::FETCH_ASSOC)):
                            ?>
@@ -241,11 +253,11 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Open Sans", sans-serif}
 
        <div class="w3-container w3-card w3-white w3-round w3-margin"><br>
 
-       <form method="post" action="project.php" >
+       <form method="post"  >
        <input style="width:100%; height:50%;" placeholder="Place your gentle feedback" name="textArea">
        
        <br>
-        <input type="Submit" name="SubmitFeedback" class="w3-button w3-theme-d1 w3-margin-bottom" value="add feedback">
+        <input type="Submit" id="<?= $projectid ?>" name="SubmitFeedback" class="w3-button w3-theme-d1 w3-margin-bottom" value="add feedback">
        </form>
        </div>
 

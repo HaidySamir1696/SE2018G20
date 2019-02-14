@@ -4,9 +4,16 @@
  include_once('./controllers/common.php');
  include_once ('./models/projects.php');
  Database::connect('startups_on_the_cloud','root',''); 
- // $projectid=$_POST['projectid'];
+  $projectid=$_POST['projectid'];
  // $feedback =safeGet("textArea");
  //Project::AddFeedback($projectid,$feedback);
+
+     
+     if(isset($_REQUEST['view'])&& $projectid){
+                          echo "okkkkk";
+                        header('location:project.php?id='.$projectid); 
+
+                           }
 
 ?>
 
@@ -57,9 +64,9 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Open Sans", sans-serif}
           <div id="Demo3" class="w3-hide w3-container">
             <div class="w3-row-padding">
               <br>
-              <form action="" class="form-inline mt-2 mt-md-0">
+              <form class="form-inline mt-2 mt-md-0">
             <input class="form-control mr-sm-2" type="text" name="keywords" placeholder="Search Location" aria-label="Search" value="<?=safeGet('keywords')?>">
-            <button class="w3-button w3-block w3-theme-l1 w3-left-align" type="submit">Search</button>
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
           </form>
                  <!--   <div >
                       <button type="button" class="w3-button w3-theme-d1 w3-margin-bottom"> Madenit Nasr</button> 
@@ -107,8 +114,7 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Open Sans", sans-serif}
     </div>
 
     <div class="w3-col m7">
-
-    <?php
+<?php
      
         //$projectrow = Project::searchlocation(safeGet('keywords'));
         //echo safeGet('keywords');
@@ -118,24 +124,24 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Open Sans", sans-serif}
                           //  $sql="SELECT * FROM startup_owner WHERE id=$id";
                             //$statement= Database::$db->prepare($sql);
                           //$statement->execute();
-
                             //$data=$statement->fetch(PDO::FETCH_ASSOC);
-                          // $query = "SELECT * FROM project WHERE category='restaurant' ";
-                           //$data = Database::$db->query($query);
-                           //$data->execute();
-                           //while($row=$data->fetch(PDO::FETCH_ASSOC)):
-                            //$id=$row['ProjectID'];
-      $keyword=safeGet('keywords');
-      $keyword = str_replace(" ", "%", $keyword);
-      $sql="SELECT * FROM `project` WHERE category='Restaurant' AND location LIKE ('%$keyword%');";
+                             $keyword=safeGet('keywords');
+                             echo $keyword;
+                             $keyword=str_replace(" ","%",$keyword);
+                             $query = "SELECT project.ProjectID,project.category,project.name,project.description,project.location,secondary_photos.primary_image
+                          FROM secondary_photos
+                          JOIN project ON project.ProjectID = secondary_photos.ProjectID WHERE category ='restaurant'
+                          AND location LIKE ('%$keyword%');";
+                          $data = Database::$db->prepare($query);
+                          $data->execute();
+                          $projectrow=[];
+                          while($row=$data->fetch(PDO::FETCH_ASSOC)):
+                            $id2[] = $row['ProjectID'];
+                            print_r($id2) ;
 
-      $statement = Database::$db->prepare($sql);
-      $statement->execute();
-      $projectrow = [];
-      while($row = $statement->fetch(PDO::FETCH_ASSOC)) {
-        $projectrow[] = new Project($row['ProjectID']);
-      
-
+                         
+                          // $projectrow[]=new Project($row['ProjectID']);
+                        //print_r($projectrow);
                           //    $projectrow = Project::searchlocation(safeGet('keywords'));
                     //$sql="SELECT * FROM 'project' WHERE category='Restaurant' AND location LIKE ('%keyword%');";
 
@@ -152,15 +158,17 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Open Sans", sans-serif}
     
       
       <div class="w3-container w3-card w3-white w3-round w3-margin"><br>
-        <img src="img/#" alt="photo" class="w3-left w3-circle w3-margin-right" style="width:60px">
+        <img src="primary_image/<?php echo $row['primary_image']; ?>" alt="photo" class="w3-left w3-circle w3-margin-right" style="width:60px">
         
 
         <h4><?php echo  $row['name']."<br><br>";  ?></h4><br>
       
         <hr class="w3-clear">
         <p><?php echo $row['description']."<br><br>";  ?></p>
-           <form id="view" method="post" action="project.php">
-                  <input type="hidden" id="projectid" name="projectid" value= "<?php echo $row['Project_ID'];?>" ><div class="w3-container w3-card w3-white w3-round w3-margin"><br>
+
+
+           <form id="view" method="post" >
+                  <input type="hidden" id="projectid" name="projectid" value= "<?php echo $row['ProjectID']; ?>" ><div class="w3-container w3-card w3-white w3-round w3-margin"><br>
                   <input class="w3-button w3-theme-d1 w3-margin-bottom" type="submit" id="viewproject" name="view" value = "View">
                             </form>       
 <!-- <form method="post" action="" >
@@ -175,8 +183,10 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Open Sans", sans-serif}
       </div>
       
      <?php  
-       }//endwhile; 
-     ?>
+
+
+     endwhile; 
+          ?>
       
     <!-- End Middle Column -->
     </div>
@@ -233,3 +243,5 @@ function openNav() {
 
 </body>
 </html> 
+
+
