@@ -42,6 +42,10 @@ https://github.com/HaidySamir1696/SE2018G20/blob/master/BRD_Edited_Final_ONE.doc
 Our Website :
 http://group20.epizy.com
 
+
+
+Link to final code version:https://github.com/HaidySamir1696/SE2018G20/blob/master/SOC_PROJECT%20FINAL%20VERSION/soc_project_5final_1.7z
+
  to log in preiview website here is a customer username & password:
  username: habiba
  password:123
