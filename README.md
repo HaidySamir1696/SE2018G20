@@ -33,8 +33,11 @@ Team names :
 
 Links :
 Srs: https://github.com/HaidySamir1696/SE2018G20/blob/master/SRS_FinalVersion.docx
+
 Brd:
 https://github.com/HaidySamir1696/SE2018G20/blob/master/BRD_Edited_Final_ONE.docx
+
+ White paper link:https://github.com/HaidySamir1696/SE2018G20/blob/master/white%20paper/Startups%20on%20cloud%202.pdf%20·%20version%201
 
 Our Website :
 http://group20.epizy.com
@@ -46,3 +49,4 @@ http://group20.epizy.com
  to log in preiview website here is an owner username & password:
  username:mona
  password:12345
+
